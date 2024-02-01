@@ -20,12 +20,14 @@ bool biweeklyPay = false;
 double overtimeMultiplier = 1.5;
 double overtimeHours;
 
+
 /*TO DO::
   -Streamline the process using only weeks in year for better accuracy.
 */
 //Defining variables for overtime wage calculations for hourly, weekly, monthly, and yearly wages.
 double overtimeHourlyWage;
 double overtimeTotalWeek;
+double overtimeTotalBiweekly;
 double overtimeTotalMonth;
 double overtimeTotalAnnual;
 
@@ -33,6 +35,11 @@ double overtimeTotalAnnual;
 /*TO DO::
   -Streamline the process using only weeks in year for better accuracy.
 */
+//Defining variables for for standard and overtime wage calculations.
+double hourlyWage;
+double biweeklyWage;
+double biweeklyWageOT;
+
 //Defining variable to hold the number of hours worked.
 double hoursWorkedWeek;
 
@@ -53,3 +60,18 @@ double annualWageOT;
 //Defining variables to hold values for true wage calculations.
 double trueWageS1;
 double trueWageS2;
+
+//Defining boolean to check if the state selection is correct.
+bool isCorrectState = false;
+
+//Defining variables for tax calculator function.
+double incomeTax;
+double stateTax;
+double socialSecurityTax;
+double medicareTax;
+
+//Defining boolean to check if the wage entry is valid.
+bool isWageValid;
+
+//Defining boolean to check if hours entered are valid.
+bool isHoursValid;
