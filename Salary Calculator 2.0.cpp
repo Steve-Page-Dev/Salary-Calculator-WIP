@@ -2,7 +2,7 @@
 //
 #include <iostream>
 #include <string>
-#include "Salary_Calculator.h"
+#include "salary_Calculator.h"
 using namespace std;
 
 //Creating function to handle pay frequency determination.
@@ -34,10 +34,6 @@ int payFrequency() {
 
 //Creating function to handle overtime calculations.
 double overtimeCalculator() {
-	/*TO DO::
-	-Streamline the process using only weeksInYear for better accuracy.
-	*/
-
 	//Calculating overtime hours and displaying them.
 	overtimeHourlyWage = hourlyWage * overtimeMultiplier;
 	cout << "\nYour estimated overtime hourly wage is: $" << overtimeHourlyWage << ".";
@@ -58,7 +54,7 @@ double overtimeCalculator() {
 	cout << "\nYour estimated total wages from overtime in a month is: $" << overtimeTotalMonth << ".";
 
 	//Calculating overtime total wage for a year and displaying it.
-	overtimeTotalAnnual = overtimeTotalMonth * weeksInYear;
+	overtimeTotalAnnual = overtimeTotalWeek * weeksInYear;
 	cout << "\nYour estimated total wages from overtime in a year is: $" << overtimeTotalAnnual << ".";
 
 	return 0;
@@ -118,7 +114,7 @@ double wageCalculator() {
 		/* TO DO::
 		 - Fix this!! Currently multiplying monthlyWage by 52 in grossly bloating calculations!!!
 		 */
-		//Calculating annual wages with overtime and displaying the result.
+		 //Calculating annual wages with overtime and displaying the result.
 		annualWage = monthlyWage * 12;
 		annualWageOT = annualWage + overtimeTotalAnnual;
 		cout << "\nYou make an estimated $" << annualWage << " per year, and $" << annualWageOT << " per year with overtime.";
@@ -145,7 +141,7 @@ double stateSelection() {
 	bool isValidState = false;
 	string state;
 	double stateTax;
-	
+
 	//Struct to hold variables for state name, abbreviation and tax rates for the function to aid in the calulation of state taxes later in the program.
 	struct State {
 		string name;
@@ -180,7 +176,7 @@ double stateSelection() {
 		//Prompting the user for input to determine which state to use for state tax calculations.
 		cout << "\nPlease enter the state that you work in: ";
 		cin >> state;
-		
+
 		for (int i = 0; i < 52; i++) {
 			if (state == states[i].name || state == states[i].abbreviation) {
 				isValidState = true;
@@ -315,7 +311,8 @@ double taxCalculator() {
 	//Spacer.
 	cout << endl;
 
-	/* 
+	
+	/*
 			TO DO:::
 			- Add functionality for groceries, bills, and other non deduction based expenses for calculations.
 			- Add functionality to determine if deductions are pre-tax or post tax (insurance, 401k, etc.)
@@ -366,10 +363,39 @@ double taxCalculator() {
 	}*/
 	return 0;
 }
+double hoursTotals() {
+	//Spacer.
+	cout << endl;
+
+	//Displaying total hours worked and total overtime hours worked for weekly and bi weekly pay.
+	//FIX ME: Currently does not deduct overtimeHours from hoursWorkedWeek.
+	totalHoursWorked = hoursWorkedWeek - overtimeHours;
+	totalHoursWorkedBiWeekly = hoursWorkedWeek * 2;
+	totalOvertimeHoursWorked = hoursWorkedWeek - 40;
+	//If else statement to handle branch for determining biweekly pay.
+	if (biweeklyPay == false) {
+
+		cout << "You work " << totalHoursWorked << " hours a week." << endl;
+		cout << "You work " << totalOvertimeHoursWorked << " hours of overtime a week." << endl;
+		//Spacer.
+		cout << endl;
+	}
+	else if (biweeklyPay == true) {
+		//Multiplying totalOverTimeHoursWorked by 2 to accurately calculate overtime hours.
+		totalOvertimeHoursWorked = overtimeHours * 2;
+
+		cout << "You work " << totalHoursWorkedBiWeekly << " hours every two weeks." << endl;
+		cout << "You work " << totalOvertimeHoursWorked << " hours of overtime every two weeks." << endl;
+		//Spacer.
+		cout << endl;
+	}
+	
+	return 0;
+}
 //Main function to handle user input
 int main() {
 	//Declaring local variables.
-	
+
 
 	//Legal disclaimer with spacer.
 	cout << "THIS APP IN NO WAY ACTS AS TAX OR FINANCIAL ADVICE. THIS PROJECT IS MADE TO PURELY GIVE ESTIMATIONS TO BETTER PLAN" << endl;
@@ -440,6 +466,7 @@ int main() {
 	overtimeCalculator();
 	wageCalculator();
 	taxCalculator();
+	hoursTotals();
 
 	//Spacer.
 	cout << endl;
